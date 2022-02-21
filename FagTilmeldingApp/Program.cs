@@ -1,5 +1,5 @@
 ﻿using FagTilmeldingApp.Codes;
-// Iteration 1
+// Iteration 2
 Semester se = new Semester("");
 Console.WriteLine("Angiv skole: ");
 string? skole = Console.ReadLine();
