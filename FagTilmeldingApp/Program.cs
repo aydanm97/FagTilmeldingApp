@@ -1,17 +1,20 @@
 ﻿using FagTilmeldingApp.Codes;
 // Iteration 2
 
-Console.WriteLine("Angiv skole: ");
+Console.WriteLine("Hvad hedder skolen?: ");
 string? skole = Console.ReadLine();
 Console.WriteLine("Angiv hovedforløb: ");
 string? hovedforløb = Console.ReadLine();
+Console.WriteLine("Hvad er din uddannelseslinje? : ");
+string? uddannelse = Console.ReadLine();
 Forløb forløb = new(skole, hovedforløb);
+forløb.ChooseUddannelseslinje(uddannelse);
 //Console.ReadKey();
 
-Console.Title = " fag tilmeldning app";
+
 Console.WriteLine("-----------------------------------------------");
 Console.ForegroundColor = ConsoleColor.Green;
-Console.WriteLine("{1},{2} {0}", Console.Title, skole, hovedforløb);
+Console.WriteLine("Tilmeldningsapp fra {0}, til {1} i {2} ", skole, hovedforløb,uddannelse);
 Console.WriteLine("-----------------------------------------------");
 Console.WriteLine("");
 Console.ForegroundColor = ConsoleColor.White;
@@ -77,6 +80,7 @@ while (true)
         {
             Console.WriteLine("Indtast ElevID");
             string elevID = Console.ReadLine();
+            Console.Clear();
             ok = v.ValidateStudent(elevID, ListStudents);
             if (ok)
             {

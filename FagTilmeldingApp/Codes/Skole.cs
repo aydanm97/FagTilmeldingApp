@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FagTilmeldingApp.Codes
 {
-    internal class Skole
+    internal abstract class Skole
     {
         string SkoleNavn { get; set; }
 
@@ -14,5 +14,6 @@ namespace FagTilmeldingApp.Codes
         {
             SkoleNavn = skoleNavn;
         }
+        public abstract void ChooseUddannelseslinje(string? uddannelse);
     }
 }
