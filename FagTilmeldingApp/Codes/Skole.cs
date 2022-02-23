@@ -15,5 +15,6 @@ namespace FagTilmeldingApp.Codes
             SkoleNavn = skoleNavn;
         }
         public abstract void ChooseUddannelseslinje(string? uddannelse);
+        public abstract void UddannelseslinjeBeskrivelse (string?beskrivelse);
     }
 }
