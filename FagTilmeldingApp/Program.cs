@@ -1,5 +1,5 @@
 ﻿using FagTilmeldingApp.Codes;
-// Iteration 4
+// Iteration5_Dataintegration_ExceptionHandling
 string beskrivelse;
 ConsoleKeyInfo key;
 Console.WriteLine("Hvad hedder skolen?: ");
@@ -34,27 +34,13 @@ Console.WriteLine("");
 Console.ForegroundColor = ConsoleColor.White;
 
 
-//Lister 
-List<FagModel> ListCourse = new()
-{
-    new FagModel() { CourseID = 1, CourseName = "Grundlæggende programmering" },
-    new FagModel() { CourseID = 2, CourseName = "Database programmering", },
-    new FagModel() { CourseID = 3, CourseName = "Studieteknik" }
+//Lister fra vores Database 
 
-};
-List<StudentModel> ListStudents = new()
-{
-    new StudentModel() { StudentID = 1, StudentFirstName = "Martin", StudentLastName = "Jensen" },
-    new StudentModel() { StudentID = 2, StudentFirstName = "Patrik", StudentLastName = "Nielsen" },
-    new StudentModel() { StudentID = 3, StudentFirstName = "Susanne", StudentLastName = "Hansen" },
-    new StudentModel() { StudentID = 4, StudentFirstName = "Thomas", StudentLastName = "Olsen" }
-};
-List<TeacherModel> ListTeacher = new()
-{
-    new TeacherModel() { TeacherID = 1, TeacherFirstName = "Niels", TeacherLastName = "Olesen" },
-    new TeacherModel() { TeacherID = 2, TeacherFirstName = "Henrik", TeacherLastName = "Paulsen" }
+ADOHandler adoHandler = new();
+List<TeacherModel> teachers = adoHandler.GetTeachers();
+List<StudentModel> students = adoHandler.GetStudents();
+List<FagModel> courses = adoHandler.GetFag();
 
-};
 List<Enrollment> ListEnrollment = new();
 ValidateClass v = new ValidateClass();
 while (true)
@@ -74,8 +60,8 @@ while (true)
 
     foreach (Enrollment showInfo in ListEnrollment)
     {//Kalder på forskellige lister og sammenligner dem med Enrollment listen
-        FagModel showFag = ListCourse.FirstOrDefault(a => a.CourseID == showInfo.ID);
-        StudentModel showElev = ListStudents.FirstOrDefault(a => a.StudentID == showInfo.ID);
+        FagModel showFag = courses.FirstOrDefault(a => a.CourseID == showInfo.ID);
+        StudentModel showElev = students.FirstOrDefault(a => a.StudentID == showInfo.ID);
 
         if (showFag != null && showElev != null)
             Console.WriteLine($"{showElev.StudentFirstName} {showElev.StudentLastName} er tilmeldt {showFag.CourseName}");
@@ -89,13 +75,13 @@ while (true)
     {
         Console.WriteLine("Indtast FagID");
         string fagID = Console.ReadLine();
-        ok = v.ValidateFag(fagID, ListCourse);
+        ok = v.ValidateFag(fagID, courses);
         if (ok)
         {
             Console.WriteLine("Indtast ElevID");
             string elevID = Console.ReadLine();
             Console.Clear();
-            ok = v.ValidateStudent(elevID, ListStudents);
+            ok = v.ValidateStudent(elevID, students);
             if (ok)
             {
                 ok = v.EnrollmentValidation(ListEnrollment);
