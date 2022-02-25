@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace FagTilmeldingApp.Codes
 {
-    internal class School : Semester
+    internal abstract class School
     {
         string? SchoolName { get; set; }
-        
-        public School(string schoolName,string semesterNavn) : base(semesterNavn)
+        public int FagIAlt { get; set; }
+
+        public School(string schoolName)
         {
             SchoolName = schoolName;
+        }
 
+        
+            public virtual void SetCourseCount(List<FagModel>courses)
+        {
+            FagIAlt = courses.Count();
         }
     }
 }
